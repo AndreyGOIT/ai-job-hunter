@@ -39,3 +39,33 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.idea/
+.vscode/
+
+# Docker
+docker-data/
+
+# Logs
+logs/
+*.log
+
+# Local database
+*.db
+*.sqlite
+
+# Temporary files
+tmp/
+temp/
+
+# Prisma
+prisma/dev.db
+
+# Test artifacts
+playwright-report/
+test-results/
+
+# OS
+Thumbs.db
+

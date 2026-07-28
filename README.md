@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI Job Hunter
 
-## Getting Started
+AI-powered assistant for job search automation, resume optimization and application tracking.
 
-First, run the development server:
+Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+AI Job Hunter is a production-oriented full-stack application designed to help software engineers and other professionals manage their entire job search process in one place.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application combines modern web technologies with AI capabilities to automate repetitive tasks such as vacancy analysis, resume adaptation, cover letter generation, and application tracking.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Besides solving a real-world problem, this project also serves as a portfolio demonstrating software architecture, clean code principles, testing practices, and modern Full Stack development.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+⸻
 
-## Learn More
+Current Status
 
-To learn more about Next.js, take a look at the following resources:
+🚧 Project is under active development.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Current milestone:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Project initialization
+- Development environment setup
+- Architecture preparation
 
-## Deploy on Vercel
+⸻
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Planned Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MVP
+
+- Store job vacancies
+- Vacancy management
+- AI-based vacancy matching
+- Resume optimization
+- Cover letter generation
+- Application tracking
+
+Future
+
+- Automatic vacancy import
+- AI-powered vacancy analysis
+- Skill recommendations
+- Analytics dashboard
+- Reporting
+- Workflow automation (n8n)
+
+⸻
+
+Technology Stack
+
+Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+Backend
+
+- Next.js Route Handlers
+- Server Actions
+
+Database
+
+- PostgreSQL
+- Prisma ORM
+
+Testing
+
+- Vitest
+- Playwright
+
+AI
+
+- OpenAI API
+
+Infrastructure
+
+- Docker
+- Docker Compose
+
+⸻
+
+Architecture
+
+The project follows modern software engineering principles:
+
+- Clean Architecture
+- Domain Driven Design (DDD)
+- SOLID
+- DRY
+- KISS
+- YAGNI
+
+The architecture is intentionally designed to allow future extraction of independent services without major refactoring.
+
+⸻
+
+Project Structure
+
+app/
+docs/
+src/
+tests/
+
+⸻
+
+Development Roadmap
+
+See:
+
+- docs/ROADMAP.md
+- docs/adr
+
+⸻
+
+Development Philosophy
+
+The project is developed iteratively.
+
+Each feature follows the same workflow:
+
+1. Requirements analysis
+2. Architecture discussion
+3. Implementation
+4. Testing
+5. Refactoring
+6. Documentation
+7. Git commit
+
+⸻
+
+License
+
+MIT (planned)
