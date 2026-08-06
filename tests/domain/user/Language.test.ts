@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Language } from "./value-objects/Language";
+import { Language } from "../../../src/domain/user/value-objects/Language";
 
 describe("Language Value Object", () => {
   it("creates a supported language", () => {

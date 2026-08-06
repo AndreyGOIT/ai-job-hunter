@@ -14,8 +14,6 @@ Phase 3
 □ First Migration
 
 ...
-Phase 1
-✔ Project setup
 
 Phase 2
 □ User profile

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { UserId } from "./value-objects/UserId";
+import { UserId } from "../../../src/domain/user/value-objects/UserId";
 
 describe("UserId Value Object", () => {
   it("creates a new UUID v4", () => {
