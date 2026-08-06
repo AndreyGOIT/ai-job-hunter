@@ -2,6 +2,22 @@ Phase 1
 ✔ Project setup
 
 Phase 2
+✔ Infrastructure
+
+Phase 3
+✔ Value Objects
+
+□ User Entity
+
+□ Prisma User
+
+□ First Migration
+
+...
+Phase 1
+✔ Project setup
+
+Phase 2
 □ User profile
 
 Phase 3
