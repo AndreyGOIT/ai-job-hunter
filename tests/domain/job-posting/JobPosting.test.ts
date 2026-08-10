@@ -163,4 +163,20 @@ describe("JobPosting Entity", () => {
 
     expect(jobPosting.source.equals(newSource)).toBe(true);
   });
+    
+  it("updates its title", () => {
+  const jobPosting = JobPosting.create({
+    id,
+    title,
+    companyName,
+    description,
+    source,
+  });
+
+  const newTitle = JobTitle.create("Senior Full Stack Developer");
+
+  jobPosting.updateTitle(newTitle);
+
+  expect(jobPosting.title.equals(newTitle)).toBe(true);
+});
 });

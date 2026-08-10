@@ -26,6 +26,10 @@ export class JobPosting {
   public get title(): JobTitle {
     return this.props.title;
   }
+    
+  public updateTitle(title: JobTitle): void {
+  this.props.title = title;
+}
 
   public get companyName(): CompanyName {
     return this.props.companyName;
