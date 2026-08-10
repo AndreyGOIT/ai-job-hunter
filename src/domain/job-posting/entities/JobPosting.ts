@@ -42,6 +42,10 @@ export class JobPosting {
   public get source(): JobPostingSource {
     return this.props.source;
   }
+    
+  public updateSource(source: JobPostingSource): void {
+  this.props.source = source;
+}
 
   public equals(other: JobPosting): boolean {
     return this.id.equals(other.id);

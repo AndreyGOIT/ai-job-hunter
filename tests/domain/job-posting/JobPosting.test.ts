@@ -12,10 +12,10 @@ describe("JobPosting Entity", () => {
   const title = JobTitle.create("Full Stack Developer");
   const companyName = CompanyName.create("Acme Oy");
   const description = JobDescription.create(
-    "We are looking for a Full Stack Developer."
+    "We are looking for a Full Stack Developer.",
   );
   const source = JobPostingSource.create(
-    "https://example.com/jobs/full-stack-developer"
+    "https://example.com/jobs/full-stack-developer",
   );
 
   it("creates a job posting", () => {
@@ -129,22 +129,38 @@ describe("JobPosting Entity", () => {
 
     expect(first.equals(second)).toBe(false);
   });
-    
+
   it("updates its description", () => {
-  const jobPosting = JobPosting.create({
-    id,
-    title,
-    companyName,
-    description,
-    source,
+    const jobPosting = JobPosting.create({
+      id,
+      title,
+      companyName,
+      description,
+      source,
+    });
+
+    const newDescription = JobDescription.create("Updated job description.");
+
+    jobPosting.updateDescription(newDescription);
+
+    expect(jobPosting.description.equals(newDescription)).toBe(true);
   });
 
-  const newDescription = JobDescription.create(
-    "Updated job description."
-  );
+  it("updates its source", () => {
+    const jobPosting = JobPosting.create({
+      id,
+      title,
+      companyName,
+      description,
+      source,
+    });
 
-  jobPosting.updateDescription(newDescription);
+    const newSource = JobPostingSource.create(
+      "https://www.example.com/jobs/updated-source",
+    );
 
-  expect(jobPosting.description.equals(newDescription)).toBe(true);
-});
+    jobPosting.updateSource(newSource);
+
+    expect(jobPosting.source.equals(newSource)).toBe(true);
+  });
 });
