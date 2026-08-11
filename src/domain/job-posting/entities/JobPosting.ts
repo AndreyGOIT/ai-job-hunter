@@ -4,7 +4,8 @@ import { JobPostingId } from "../value-objects/JobPostingId";
 import { JobPostingSource } from "../value-objects/JobPostingSource";
 import { JobPostingStatus } from "../value-objects/JobPostingStatus";
 import { JobTitle } from "../value-objects/JobTitle";
-import { JobLocation} from "../value-objects/JobLocation"
+import { JobLocation } from "../value-objects/JobLocation";
+import { EmploymentType } from "../value-objects/EmploymentType";
 
 export type JobPostingProps = {
   id: JobPostingId;
@@ -14,6 +15,7 @@ export type JobPostingProps = {
   source: JobPostingSource;
   status: JobPostingStatus;
   location: JobLocation;
+  employmentType: EmploymentType;
 };
 
 export class JobPosting {
@@ -65,6 +67,10 @@ export class JobPosting {
 
   public get location(): JobLocation {
     return this.props.location;
+  }
+
+  public get employmentType(): EmploymentType {
+    return this.props.employmentType;
   }
 
   public equals(other: JobPosting): boolean {
