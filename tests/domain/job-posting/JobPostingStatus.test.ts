@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { JobPosting } from "../../../src/domain/job-posting/entities/JobPosting";
 import { CompanyName } from "../../../src/domain/job-posting/value-objects/CompanyName";
 import { JobDescription } from "../../../src/domain/job-posting/value-objects/JobDescription";
+import { JobLocation } from "../../../src/domain/job-posting/value-objects/JobLocation";
 import { JobPostingId } from "../../../src/domain/job-posting/value-objects/JobPostingId";
 import { JobPostingSource } from "../../../src/domain/job-posting/value-objects/JobPostingSource";
 import { JobPostingStatus } from "../../../src/domain/job-posting/value-objects/JobPostingStatus";
@@ -15,6 +16,7 @@ describe("JobPosting Entity", () => {
   const description = JobDescription.create("Develop web applications.");
   const source = JobPostingSource.create("https://www.linkedin.com/jobs/view/123456789");
   const status = JobPostingStatus.create("OPEN");
+  const location = JobLocation.create("Helsinki");
 
   it("creates a job posting", () => {
     const jobPosting = JobPosting.create({
@@ -24,6 +26,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting).toBeInstanceOf(JobPosting);
@@ -37,6 +40,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting.id.equals(id)).toBe(true);
@@ -50,6 +54,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting.title.equals(title)).toBe(true);
@@ -63,6 +68,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting.companyName.equals(companyName)).toBe(true);
@@ -76,6 +82,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting.description.equals(description)).toBe(true);
@@ -89,6 +96,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting.source.equals(source)).toBe(true);
@@ -102,6 +110,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(jobPosting.status.equals(status)).toBe(true);
@@ -115,6 +124,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     const second = JobPosting.create({
@@ -124,6 +134,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(first.equals(second)).toBe(true);
@@ -137,6 +148,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     const second = JobPosting.create({
@@ -146,6 +158,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     expect(first.equals(second)).toBe(false);
@@ -159,6 +172,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     const newTitle = JobTitle.create("Senior Full Stack Developer");
@@ -176,6 +190,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     const newDescription = JobDescription.create(
@@ -195,6 +210,7 @@ describe("JobPosting Entity", () => {
       description,
       source,
       status,
+      location,
     });
 
     const newSource = JobPostingSource.create(
