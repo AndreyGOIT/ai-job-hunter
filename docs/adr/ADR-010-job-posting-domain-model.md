@@ -32,6 +32,7 @@ The initial model will contain:
 6. EmploymentType
 7. Description
 8. Source
+9. JobPostingStatus
 
 JobPostingId
 
@@ -82,6 +83,17 @@ Source
 Source identifies where the job posting originated.
 
 The domain will represent the source explicitly but will not depend on a particular job board, API, scraper, or infrastructure implementation.
+
+JobPostingStatus
+
+JobPostingStatus represents the lifecycle state of the job vacancy itself, independently of any candidate’s interaction with it.
+
+The current values are:
+
+- OPEN
+- CLOSED
+
+Candidate-specific workflow states are outside the scope of JobPostingStatus.
 
 Design Principles
 
