@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { JobPosting } from "../../../src/domain/job-posting/entities/JobPosting";
+import { WorkMode } from "../../../src/domain/profile/value-objects/WorkMode";
 import { JobPostingId } from "../../../src/domain/job-posting/value-objects/JobPostingId";
 import { JobTitle } from "../../../src/domain/job-posting/value-objects/JobTitle";
 import { CompanyName } from "../../../src/domain/job-posting/value-objects/CompanyName";
@@ -23,6 +24,7 @@ describe("JobPosting Entity", () => {
   const status = JobPostingStatus.create("OPEN");
   const location = JobLocation.create("Helsinki");
   const employmentType = EmploymentType.create("full-time");
+  const workMode = WorkMode.create("REMOTE");
 
   it("creates a job posting", () => {
     const jobPosting = JobPosting.create({
@@ -34,6 +36,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(jobPosting).toBeInstanceOf(JobPosting);
@@ -49,6 +52,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(jobPosting.id.equals(id)).toBe(true);
@@ -64,6 +68,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(jobPosting.title.equals(title)).toBe(true);
@@ -79,6 +84,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(jobPosting.companyName.equals(companyName)).toBe(true);
@@ -94,6 +100,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(jobPosting.description.equals(description)).toBe(true);
@@ -109,6 +116,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(jobPosting.source.equals(source)).toBe(true);
@@ -124,6 +132,7 @@ describe("JobPosting Entity", () => {
     status,
     location,
     employmentType,
+    workMode,
   });
 
   expect(jobPosting.location.equals(location)).toBe(true);
@@ -139,10 +148,27 @@ describe("JobPosting Entity", () => {
     status,
     location,
     employmentType,
+    workMode,
   });
 
   expect(jobPosting.employmentType.equals(employmentType)).toBe(true);
 });
+
+  it("returns its work mode", () => {
+    const jobPosting = JobPosting.create({
+      id,
+      title,
+      companyName,
+      description,
+      source,
+      status,
+      location,
+      employmentType,
+      workMode,
+    });
+
+    expect(jobPosting.workMode.equals(workMode)).toBe(true);
+  });
 
   it("considers job postings with the same id equal", () => {
     const first = JobPosting.create({
@@ -154,6 +180,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     const second = JobPosting.create({
@@ -165,6 +192,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(first.equals(second)).toBe(true);
@@ -180,6 +208,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     const second = JobPosting.create({
@@ -191,6 +220,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     expect(first.equals(second)).toBe(false);
@@ -206,6 +236,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     const newDescription = JobDescription.create("Updated job description.");
@@ -225,6 +256,7 @@ describe("JobPosting Entity", () => {
       status,
       location,
       employmentType,
+      workMode,
     });
 
     const newSource = JobPostingSource.create(
@@ -246,6 +278,7 @@ describe("JobPosting Entity", () => {
     status,
     location,
     employmentType,
+    workMode,
   });
 
   const newTitle = JobTitle.create("Senior Full Stack Developer");
