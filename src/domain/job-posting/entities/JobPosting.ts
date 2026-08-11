@@ -5,7 +5,7 @@ import { JobPostingSource } from "../value-objects/JobPostingSource";
 import { JobPostingStatus } from "../value-objects/JobPostingStatus";
 import { JobTitle } from "../value-objects/JobTitle";
 import { JobLocation } from "../value-objects/JobLocation";
-import { EmploymentType } from "../value-objects/EmploymentType";
+import { EmploymentType } from "../../profile/value-objects/EmploymentType";
 import { WorkMode } from "../../profile/value-objects/WorkMode";
 
 export type JobPostingProps = {

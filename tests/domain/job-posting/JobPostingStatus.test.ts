@@ -4,7 +4,7 @@ import { JobPosting } from "../../../src/domain/job-posting/entities/JobPosting"
 import { WorkMode } from "../../../src/domain/profile/value-objects/WorkMode";
 import { CompanyName } from "../../../src/domain/job-posting/value-objects/CompanyName";
 import { JobDescription } from "../../../src/domain/job-posting/value-objects/JobDescription";
-import { EmploymentType } from "../../../src/domain/job-posting/value-objects/EmploymentType";
+import { EmploymentType } from "../../../src/domain/profile/value-objects/EmploymentType";
 import { JobLocation } from "../../../src/domain/job-posting/value-objects/JobLocation";
 import { JobPostingId } from "../../../src/domain/job-posting/value-objects/JobPostingId";
 import { JobPostingSource } from "../../../src/domain/job-posting/value-objects/JobPostingSource";
@@ -19,7 +19,7 @@ describe("JobPosting Entity", () => {
   const source = JobPostingSource.create("https://www.linkedin.com/jobs/view/123456789");
   const status = JobPostingStatus.create("OPEN");
   const location = JobLocation.create("Helsinki");
-  const employmentType = EmploymentType.create("full-time");
+  const employmentType = EmploymentType.create("FULL_TIME");
   const workMode = WorkMode.create("REMOTE");
 
   it("creates a job posting", () => {

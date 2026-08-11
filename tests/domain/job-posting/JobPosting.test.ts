@@ -9,7 +9,7 @@ import { JobDescription } from "../../../src/domain/job-posting/value-objects/Jo
 import { JobPostingSource } from "../../../src/domain/job-posting/value-objects/JobPostingSource";
 import { JobPostingStatus } from "../../../src/domain/job-posting/value-objects/JobPostingStatus";
 import { JobLocation } from "../../../src/domain/job-posting/value-objects/JobLocation";
-import { EmploymentType } from "../../../src/domain/job-posting/value-objects/EmploymentType";
+import { EmploymentType } from "../../../src/domain/profile/value-objects/EmploymentType";
 
 describe("JobPosting Entity", () => {
   const id = JobPostingId.create();
@@ -23,7 +23,7 @@ describe("JobPosting Entity", () => {
   );
   const status = JobPostingStatus.create("OPEN");
   const location = JobLocation.create("Helsinki");
-  const employmentType = EmploymentType.create("full-time");
+  const employmentType = EmploymentType.create("FULL_TIME");
   const workMode = WorkMode.create("REMOTE");
 
   it("creates a job posting", () => {
