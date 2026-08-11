@@ -2,6 +2,7 @@ import { CompanyName } from "../value-objects/CompanyName";
 import { JobDescription } from "../value-objects/JobDescription";
 import { JobPostingId } from "../value-objects/JobPostingId";
 import { JobPostingSource } from "../value-objects/JobPostingSource";
+import { JobPostingStatus } from "../value-objects/JobPostingStatus";
 import { JobTitle } from "../value-objects/JobTitle";
 
 export type JobPostingProps = {
@@ -10,6 +11,7 @@ export type JobPostingProps = {
   companyName: CompanyName;
   description: JobDescription;
   source: JobPostingSource;
+  status: JobPostingStatus;
 };
 
 export class JobPosting {
@@ -26,10 +28,10 @@ export class JobPosting {
   public get title(): JobTitle {
     return this.props.title;
   }
-    
+
   public updateTitle(title: JobTitle): void {
-  this.props.title = title;
-}
+    this.props.title = title;
+  }
 
   public get companyName(): CompanyName {
     return this.props.companyName;
@@ -46,10 +48,18 @@ export class JobPosting {
   public get source(): JobPostingSource {
     return this.props.source;
   }
-    
+
   public updateSource(source: JobPostingSource): void {
-  this.props.source = source;
-}
+    this.props.source = source;
+  }
+
+  public get status(): JobPostingStatus {
+    return this.props.status;
+  }
+
+  public updateStatus(status: JobPostingStatus): void {
+    this.props.status = status;
+  }
 
   public equals(other: JobPosting): boolean {
     return this.id.equals(other.id);
