@@ -62,4 +62,56 @@ describe("AdzunaJobPostingMapper", () => {
       "Unsupported Adzuna contract type: temporary",
     );
   });
+
+  it("maps a permanent full-time Adzuna job to FULL_TIME", () => {
+    const adzunaJob = {
+      id: "129698750",
+      title: "Software Developer",
+      description: "Software Developer ...",
+      redirect_url: "https://adzuna.co.uk/jobs/land/ad/129698750",
+      contract_type: "permanent",
+      contract_time: "full_time",
+      company: {
+        display_name: "Example Company",
+      },
+      location: {
+        area: ["UK", "London"],
+        display_name: "London",
+      },
+    };
+
+    const mapper = new AdzunaJobPostingMapper({
+      workMode: "ONSITE",
+    });
+
+    const jobPosting = mapper.map(adzunaJob);
+
+    expect(jobPosting.employmentType.value).toBe("FULL_TIME");
+  });
+
+  it("maps a permanent part-time Adzuna job to PART_TIME", () => {
+    const adzunaJob = {
+      id: "129698751",
+      title: "Part-time Software Developer",
+      description: "Part-time Software Developer ...",
+      redirect_url: "https://adzuna.co.uk/jobs/land/ad/129698751",
+      contract_type: "permanent",
+      contract_time: "part_time",
+      company: {
+        display_name: "Example Company",
+      },
+      location: {
+        area: ["UK", "London"],
+        display_name: "London",
+      },
+    };
+
+    const mapper = new AdzunaJobPostingMapper({
+      workMode: "ONSITE",
+    });
+
+    const jobPosting = mapper.map(adzunaJob);
+
+    expect(jobPosting.employmentType.value).toBe("PART_TIME");
+  });
 });
