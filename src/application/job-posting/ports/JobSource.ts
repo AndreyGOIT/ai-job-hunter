@@ -1,5 +1,6 @@
 import { JobPosting } from "../../../domain/job-posting/entities/JobPosting";
+import { JobSearchCriteria } from "../queries/JobSearchCriteria";
 
 export interface JobSource {
-  fetch(): Promise<readonly JobPosting[]>;
+  fetch(criteria: JobSearchCriteria): Promise<readonly JobPosting[]>;
 }

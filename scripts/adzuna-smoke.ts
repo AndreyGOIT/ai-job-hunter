@@ -1,6 +1,7 @@
 import { FetchJobPostings } from "../src/application/job-posting/use-cases/FetchJobPostings";
 import { AdzunaJobSource } from "../src/infrastructure/adzuna/AdzunaJobSource";
 import { loadAdzunaRuntimeConfiguration } from "../src/infrastructure/adzuna/AdzunaRuntimeConfiguration";
+import { JobSearchCriteria } from "../src/application/job-posting/queries/JobSearchCriteria";
 
 async function run(): Promise<void> {
   const configuration = loadAdzunaRuntimeConfiguration({
@@ -9,7 +10,11 @@ async function run(): Promise<void> {
   });
   const jobSource = new AdzunaJobSource(configuration);
   const fetchJobPostings = new FetchJobPostings(jobSource);
-  const jobPostings = await fetchJobPostings.execute();
+  const criteria = JobSearchCriteria.create({
+    keywords: "software developer",
+  });
+  
+  const jobPostings = await fetchJobPostings.execute(criteria);
 
   console.info(`Received ${jobPostings.length} Adzuna job postings.`);
 
@@ -30,7 +35,9 @@ run().catch((error: unknown) => {
   ) {
     console.error(error.message);
   } else {
-    console.error("Adzuna smoke test failed. Check credentials and network access.");
+    console.error(
+      "Adzuna smoke test failed. Check credentials and network access.",
+    );
   }
 
   process.exitCode = 1;

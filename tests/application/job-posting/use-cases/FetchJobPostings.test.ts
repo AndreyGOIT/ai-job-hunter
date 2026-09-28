@@ -12,11 +12,17 @@ import { JobPostingStatus } from "../../../../src/domain/job-posting/value-objec
 import { JobTitle } from "../../../../src/domain/job-posting/value-objects/JobTitle";
 import { EmploymentType } from "../../../../src/domain/profile/value-objects/EmploymentType";
 import { WorkMode } from "../../../../src/domain/profile/value-objects/WorkMode";
+import { JobSearchCriteria } from "../../../../src/application/job-posting/queries/JobSearchCriteria";
 
 class FakeJobSource implements JobSource {
+  public receivedCriteria: JobSearchCriteria | undefined;
+
   public constructor(private readonly jobPostings: readonly JobPosting[]) {}
 
-  public async fetch(): Promise<readonly JobPosting[]> {
+  public async fetch(
+    criteria: JobSearchCriteria,
+  ): Promise<readonly JobPosting[]> {
+    this.receivedCriteria = criteria;
     return this.jobPostings;
   }
 }
@@ -45,12 +51,18 @@ describe("FetchJobPostings", () => {
       workMode: WorkMode.create("HYBRID"),
       employmentType: EmploymentType.create("CONTRACT"),
     });
-    const useCase = new FetchJobPostings(
-      new FakeJobSource([firstJobPosting, secondJobPosting]),
-    );
 
-    const jobPostings = await useCase.execute();
+    const jobSource = new FakeJobSource([firstJobPosting, secondJobPosting]);
+
+    const useCase = new FetchJobPostings(jobSource);
+
+    const criteria = JobSearchCriteria.create({
+      keywords: "full stack developer",
+    });
+
+    const jobPostings = await useCase.execute(criteria);
 
     expect(jobPostings).toEqual([firstJobPosting, secondJobPosting]);
+    expect(jobSource.receivedCriteria).toBe(criteria);
   });
 });
