@@ -1,5 +1,6 @@
 import { JobSource } from "../../application/job-posting/ports/JobSource";
 import { JobPosting } from "../../domain/job-posting/entities/JobPosting";
+import { JobSearchCriteria } from "../../application/job-posting/queries/JobSearchCriteria";
 import { AdzunaJobPostingMapper } from "./AdzunaJobPostingMapper";
 
 type AdzunaJob = Parameters<AdzunaJobPostingMapper["map"]>[0];
@@ -15,8 +16,6 @@ type AdzunaJobSourceOptions = {
   workMode: string;
 };
 
-const RESULTS_PER_PAGE = "20";
-
 export class AdzunaJobSource implements JobSource {
   private readonly mapper: AdzunaJobPostingMapper;
 
@@ -26,11 +25,15 @@ export class AdzunaJobSource implements JobSource {
     });
   }
 
-  public async fetch(): Promise<readonly JobPosting[]> {
-    const response = await globalThis.fetch(this.buildSearchUrl());
+  public async fetch(
+    criteria: JobSearchCriteria,
+  ): Promise<readonly JobPosting[]> {
+    const response = await globalThis.fetch(this.buildSearchUrl(criteria));
 
     if (!response.ok) {
-      throw new Error(`Adzuna request failed with status: ${response.status}`);
+      throw new Error(
+        `Adzuna request failed with status: ${response.status}`,
+      );
     }
 
     const payload = (await response.json()) as AdzunaSearchResponse;
@@ -38,14 +41,22 @@ export class AdzunaJobSource implements JobSource {
     return payload.results.map((job) => this.mapper.map(job));
   }
 
-  private buildSearchUrl(): string {
+  private buildSearchUrl(criteria: JobSearchCriteria): string {
     const url = new URL(
-      `https://api.adzuna.com/v1/api/jobs/${this.options.country}/search/1`,
+      `https://api.adzuna.com/v1/api/jobs/${this.options.country}/search/${criteria.page}`,
     );
 
     url.searchParams.set("app_id", this.options.appId);
     url.searchParams.set("app_key", this.options.appKey);
-    url.searchParams.set("results_per_page", RESULTS_PER_PAGE);
+    url.searchParams.set(
+      "results_per_page",
+      String(criteria.resultsPerPage),
+    );
+    url.searchParams.set("what", criteria.keywords);
+
+    if (criteria.location !== undefined) {
+      url.searchParams.set("where", criteria.location);
+    }
 
     return url.toString();
   }
