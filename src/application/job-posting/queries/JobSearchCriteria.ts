@@ -1,6 +1,11 @@
+import { EmploymentType } from "../../../domain/profile/value-objects/EmploymentType";
+import { WorkMode } from "../../../domain/profile/value-objects/WorkMode";
+
 export type JobSearchCriteriaInput = {
   keywords: string;
   location?: string;
+  workMode?: WorkMode;
+  employmentType?: EmploymentType;
   page?: number;
   resultsPerPage?: number;
 };
@@ -9,6 +14,8 @@ export class JobSearchCriteria {
   private constructor(
     public readonly keywords: string,
     public readonly location: string | undefined,
+    public readonly workMode: WorkMode | undefined,
+    public readonly employmentType: EmploymentType | undefined,
     public readonly page: number,
     public readonly resultsPerPage: number,
   ) {}
@@ -33,6 +40,8 @@ export class JobSearchCriteria {
     return new JobSearchCriteria(
       input.keywords,
       input.location,
+      input.workMode,
+      input.employmentType,
       page,
       resultsPerPage,
     );

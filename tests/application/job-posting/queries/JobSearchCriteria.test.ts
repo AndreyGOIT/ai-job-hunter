@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import { JobSearchCriteria } from "../../../../src/application/job-posting/queries/JobSearchCriteria";
 
+import { EmploymentType } from "../../../../src/domain/profile/value-objects/EmploymentType";
+import { WorkMode } from "../../../../src/domain/profile/value-objects/WorkMode";
+
 describe("JobSearchCriteria", () => {
   it("creates criteria with defaults", () => {
     const criteria = JobSearchCriteria.create({
@@ -52,5 +55,20 @@ describe("JobSearchCriteria", () => {
         resultsPerPage: 0,
       }),
     ).toThrow("Results per page must be a positive integer");
+  });
+
+  it("creates criteria with work mode and employment type", () => {
+    const workMode = WorkMode.create("HYBRID");
+    const employmentType = EmploymentType.create("FULL_TIME");
+
+    const criteria = JobSearchCriteria.create({
+      keywords: "full stack developer",
+      location: "Helsinki",
+      workMode,
+      employmentType,
+    });
+
+    expect(criteria.workMode?.equals(workMode)).toBe(true);
+    expect(criteria.employmentType?.equals(employmentType)).toBe(true);
   });
 });
