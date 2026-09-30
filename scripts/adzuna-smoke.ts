@@ -35,10 +35,8 @@ run().catch((error: unknown) => {
   ) {
     console.error(error.message);
   } else {
-    console.error(
-      "Adzuna smoke test failed. Check credentials and network access.",
-    );
-  }
+  console.error("Adzuna smoke test failed:", error);
+}
 
   process.exitCode = 1;
 });

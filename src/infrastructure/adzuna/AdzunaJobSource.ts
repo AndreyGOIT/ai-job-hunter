@@ -31,14 +31,29 @@ export class AdzunaJobSource implements JobSource {
     const response = await globalThis.fetch(this.buildSearchUrl(criteria));
 
     if (!response.ok) {
-      throw new Error(
-        `Adzuna request failed with status: ${response.status}`,
-      );
+      throw new Error(`Adzuna request failed with status: ${response.status}`);
     }
 
     const payload = (await response.json()) as AdzunaSearchResponse;
 
-    return payload.results.map((job) => this.mapper.map(job));
+    const jobPostings: JobPosting[] = [];
+
+    for (const job of payload.results) {
+      try {
+        jobPostings.push(this.mapper.map(job));
+      } catch (error: unknown) {
+        if (
+          error instanceof Error &&
+          error.message.startsWith("Unsupported Adzuna contract type:")
+        ) {
+          continue;
+        }
+
+        throw error;
+      }
+    }
+
+    return jobPostings;
   }
 
   private buildSearchUrl(criteria: JobSearchCriteria): string {
@@ -48,10 +63,7 @@ export class AdzunaJobSource implements JobSource {
 
     url.searchParams.set("app_id", this.options.appId);
     url.searchParams.set("app_key", this.options.appKey);
-    url.searchParams.set(
-      "results_per_page",
-      String(criteria.resultsPerPage),
-    );
+    url.searchParams.set("results_per_page", String(criteria.resultsPerPage));
     url.searchParams.set("what", criteria.keywords);
 
     if (criteria.location !== undefined) {

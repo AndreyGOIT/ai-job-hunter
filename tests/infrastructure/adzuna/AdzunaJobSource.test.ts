@@ -29,6 +29,19 @@ describe("AdzunaJobSource", () => {
               display_name: "Marlow, Buckinghamshire",
             },
           },
+          {
+            id: "129698750",
+            title: "Incomplete Employment Data",
+            description: "This job has incomplete employment data.",
+            redirect_url: "https://adzuna.co.uk/jobs/land/ad/129698750",
+            company: {
+              display_name: "Incomplete Company",
+            },
+            location: {
+              area: ["UK"],
+              display_name: "London",
+            },
+          },
         ],
       }),
     });
@@ -50,8 +63,8 @@ describe("AdzunaJobSource", () => {
     const jobPostings = await jobSource.fetch(criteria);
 
     expect(fetchMock).toHaveBeenCalledWith(
-  "https://api.adzuna.com/v1/api/jobs/gb/search/2?app_id=test-app-id&app_key=test-app-key&results_per_page=10&what=full+stack+developer&where=Helsinki",
-);
+      "https://api.adzuna.com/v1/api/jobs/gb/search/2?app_id=test-app-id&app_key=test-app-key&results_per_page=10&what=full+stack+developer&where=Helsinki",
+    );
     expect(jobPostings).toHaveLength(1);
     expect(jobPostings[0].title.value).toBe("Javascript Developer");
     expect(jobPostings[0].workMode.value).toBe("ONSITE");

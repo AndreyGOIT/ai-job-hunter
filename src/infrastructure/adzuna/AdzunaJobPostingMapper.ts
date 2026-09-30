@@ -34,11 +34,10 @@ type AdzunaJobPostingMapperOptions = {
 };
 
 export class AdzunaJobPostingMapper {
-  public constructor(
-    private readonly options: AdzunaJobPostingMapperOptions,
-  ) {}
+  public constructor(private readonly options: AdzunaJobPostingMapperOptions) {}
 
   public map(job: AdzunaJob): JobPosting {
+
     return JobPosting.create({
       id: JobPostingId.create(),
       title: JobTitle.create(job.title),
@@ -53,15 +52,27 @@ export class AdzunaJobPostingMapper {
   }
 
   private mapEmploymentType(job: AdzunaJob): string {
+    if (job.contract_time === "part_time") {
+      return "PART_TIME";
+    }
+
+    if (job.contract_time === "full_time") {
+      return "FULL_TIME";
+    }
+
     if (job.contract_type === "contract") {
       return "CONTRACT";
     }
 
-    if (job.contract_type === "part_time" || job.contract_time === "part_time") {
+    if (job.contract_type === "part_time") {
       return "PART_TIME";
     }
 
-    if (job.contract_type === "full_time" || job.contract_time === "full_time") {
+    if (job.contract_type === "full_time") {
+      return "FULL_TIME";
+    }
+
+    if (job.contract_type === "permanent") {
       return "FULL_TIME";
     }
 
