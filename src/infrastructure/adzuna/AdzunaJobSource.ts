@@ -65,6 +65,17 @@ export class AdzunaJobSource implements JobSource {
     url.searchParams.set("app_key", this.options.appKey);
     url.searchParams.set("results_per_page", String(criteria.resultsPerPage));
     url.searchParams.set("what", criteria.keywords);
+    if (criteria.employmentType?.value === "FULL_TIME") {
+      url.searchParams.set("full_time", "1");
+    }
+
+    if (criteria.employmentType?.value === "PART_TIME") {
+      url.searchParams.set("part_time", "1");
+    }
+
+    if (criteria.employmentType?.value === "CONTRACT") {
+      url.searchParams.set("contract", "1");
+    }
 
     if (criteria.location !== undefined) {
       url.searchParams.set("where", criteria.location);

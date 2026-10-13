@@ -4,6 +4,8 @@ import { AdzunaJobSource } from "../../../src/infrastructure/adzuna/AdzunaJobSou
 
 import { JobSearchCriteria } from "../../../src/application/job-posting/queries/JobSearchCriteria";
 
+import { EmploymentType } from "../../../src/domain/profile/value-objects/EmploymentType";
+
 describe("AdzunaJobSource", () => {
   afterEach(() => {
     vi.unstubAllGlobals();
@@ -68,6 +70,80 @@ describe("AdzunaJobSource", () => {
     expect(jobPostings).toHaveLength(1);
     expect(jobPostings[0].title.value).toBe("Javascript Developer");
     expect(jobPostings[0].workMode.value).toBe("ONSITE");
+  });
+
+  it.each([
+    ["FULL_TIME", "full_time"],
+    ["PART_TIME", "part_time"],
+    ["CONTRACT", "contract"],
+  ] as const)(
+    "adds the %s employment filter to the Adzuna request",
+    async (employmentType, expectedParameter) => {
+      const fetchMock = vi.fn().mockResolvedValue({
+        ok: true,
+        json: vi.fn().mockResolvedValue({
+          results: [],
+        }),
+      });
+
+      vi.stubGlobal("fetch", fetchMock);
+
+      const jobSource = new AdzunaJobSource({
+        appId: "test-app-id",
+        appKey: "test-app-key",
+        country: "gb",
+        workMode: "ONSITE",
+      });
+
+      const criteria = JobSearchCriteria.create({
+        keywords: "software developer",
+        employmentType: EmploymentType.create(employmentType),
+      });
+
+      await jobSource.fetch(criteria);
+
+      const requestedUrl = new URL(fetchMock.mock.calls[0][0] as string);
+
+      expect(requestedUrl.searchParams.get(expectedParameter)).toBe("1");
+
+      const employmentParameters = ["full_time", "part_time", "contract"];
+
+      for (const parameter of employmentParameters) {
+        if (parameter !== expectedParameter) {
+          expect(requestedUrl.searchParams.has(parameter)).toBe(false);
+        }
+      }
+    },
+  );
+
+  it("does not add employment filters when employment type is not specified", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: vi.fn().mockResolvedValue({
+        results: [],
+      }),
+    });
+
+    vi.stubGlobal("fetch", fetchMock);
+
+    const jobSource = new AdzunaJobSource({
+      appId: "test-app-id",
+      appKey: "test-app-key",
+      country: "gb",
+      workMode: "ONSITE",
+    });
+
+    const criteria = JobSearchCriteria.create({
+      keywords: "software developer",
+    });
+
+    await jobSource.fetch(criteria);
+
+    const requestedUrl = new URL(fetchMock.mock.calls[0][0] as string);
+
+    expect(requestedUrl.searchParams.has("full_time")).toBe(false);
+    expect(requestedUrl.searchParams.has("part_time")).toBe(false);
+    expect(requestedUrl.searchParams.has("contract")).toBe(false);
   });
 
   it("throws when Adzuna returns an HTTP error response", async () => {
