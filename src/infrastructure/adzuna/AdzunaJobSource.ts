@@ -13,16 +13,13 @@ type AdzunaJobSourceOptions = {
   appId: string;
   appKey: string;
   country: string;
-  workMode: string;
 };
 
 export class AdzunaJobSource implements JobSource {
   private readonly mapper: AdzunaJobPostingMapper;
 
   public constructor(private readonly options: AdzunaJobSourceOptions) {
-    this.mapper = new AdzunaJobPostingMapper({
-      workMode: options.workMode,
-    });
+    this.mapper = new AdzunaJobPostingMapper();
   }
 
   public async fetch(

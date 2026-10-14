@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import { AdzunaJobPostingMapper } from "../../../src/infrastructure/adzuna/AdzunaJobPostingMapper";
-import { WorkMode } from "../../../src/domain/profile/value-objects/WorkMode";
 
 describe("AdzunaJobPostingMapper", () => {
   it("maps an Adzuna job response into a JobPosting", () => {
@@ -20,9 +19,7 @@ describe("AdzunaJobPostingMapper", () => {
         display_name: "Marlow, Buckinghamshire",
       },
     };
-    const mapper = new AdzunaJobPostingMapper({
-      workMode: "ONSITE",
-    });
+    const mapper = new AdzunaJobPostingMapper();
 
     const jobPosting = mapper.map(adzunaJob);
 
@@ -35,7 +32,7 @@ describe("AdzunaJobPostingMapper", () => {
     expect(jobPosting.source.value).toBe(adzunaJob.redirect_url);
     expect(jobPosting.location.value).toBe("Marlow, Buckinghamshire");
     expect(jobPosting.employmentType.value).toBe("FULL_TIME");
-    expect(jobPosting.workMode.equals(WorkMode.create("ONSITE"))).toBe(true);
+    expect(jobPosting.workMode).toBeUndefined();
     expect(jobPosting.status.value).toBe("OPEN");
   });
 
@@ -54,9 +51,7 @@ describe("AdzunaJobPostingMapper", () => {
         display_name: "Marlow, Buckinghamshire",
       },
     };
-    const mapper = new AdzunaJobPostingMapper({
-      workMode: "ONSITE",
-    });
+    const mapper = new AdzunaJobPostingMapper();
 
     expect(() => mapper.map(adzunaJob)).toThrow(
       "Unsupported Adzuna contract type: temporary",
@@ -80,9 +75,7 @@ describe("AdzunaJobPostingMapper", () => {
       },
     };
 
-    const mapper = new AdzunaJobPostingMapper({
-      workMode: "ONSITE",
-    });
+    const mapper = new AdzunaJobPostingMapper();
 
     const jobPosting = mapper.map(adzunaJob);
 
@@ -106,9 +99,7 @@ describe("AdzunaJobPostingMapper", () => {
       },
     };
 
-    const mapper = new AdzunaJobPostingMapper({
-      workMode: "ONSITE",
-    });
+    const mapper = new AdzunaJobPostingMapper();
 
     const jobPosting = mapper.map(adzunaJob);
 

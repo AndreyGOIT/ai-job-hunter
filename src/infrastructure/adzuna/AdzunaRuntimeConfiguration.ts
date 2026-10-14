@@ -1,13 +1,11 @@
 type AdzunaRuntimeOptions = {
   country: string;
-  workMode: string;
 };
 
 export type AdzunaRuntimeConfiguration = {
   appId: string;
   appKey: string;
   country: string;
-  workMode: string;
 };
 
 export function loadAdzunaRuntimeConfiguration(
@@ -26,6 +24,5 @@ export function loadAdzunaRuntimeConfiguration(
     appId,
     appKey,
     country: options.country,
-    workMode: options.workMode,
   };
 }

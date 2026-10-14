@@ -46,7 +46,7 @@ describe("CreateJobPosting", () => {
     expect(jobPosting.source.equals(source)).toBe(true);
     expect(jobPosting.status.equals(status)).toBe(true);
     expect(jobPosting.location.equals(location)).toBe(true);
-    expect(jobPosting.workMode.equals(workMode)).toBe(true);
+    expect(jobPosting.workMode).toEqual(workMode);
     expect(jobPosting.employmentType.equals(employmentType)).toBe(true);
   });
 });

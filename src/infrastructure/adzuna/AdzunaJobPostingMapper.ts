@@ -7,7 +7,6 @@ import { JobPostingSource } from "../../domain/job-posting/value-objects/JobPost
 import { JobPostingStatus } from "../../domain/job-posting/value-objects/JobPostingStatus";
 import { JobTitle } from "../../domain/job-posting/value-objects/JobTitle";
 import { EmploymentType } from "../../domain/profile/value-objects/EmploymentType";
-import { WorkMode } from "../../domain/profile/value-objects/WorkMode";
 
 type AdzunaJob = {
   id: string;
@@ -24,20 +23,8 @@ type AdzunaJob = {
     display_name: string;
   };
 };
-
-type AdzunaJobPostingMapperOptions = {
-  /**
-   * The Adzuna search response does not include work-mode data. This value is
-   * supplied explicitly; the mapper does not infer it from any Adzuna field.
-   */
-  workMode: string;
-};
-
 export class AdzunaJobPostingMapper {
-  public constructor(private readonly options: AdzunaJobPostingMapperOptions) {}
-
   public map(job: AdzunaJob): JobPosting {
-
     return JobPosting.create({
       id: JobPostingId.create(),
       title: JobTitle.create(job.title),
@@ -47,7 +34,7 @@ export class AdzunaJobPostingMapper {
       status: JobPostingStatus.create("OPEN"),
       location: JobLocation.create(job.location.display_name),
       employmentType: EmploymentType.create(this.mapEmploymentType(job)),
-      workMode: WorkMode.create(this.options.workMode),
+      workMode: undefined,
     });
   }
 

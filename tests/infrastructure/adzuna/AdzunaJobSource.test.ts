@@ -52,7 +52,6 @@ describe("AdzunaJobSource", () => {
       appId: "test-app-id",
       appKey: "test-app-key",
       country: "gb",
-      workMode: "ONSITE",
     });
 
     const criteria = JobSearchCriteria.create({
@@ -69,7 +68,7 @@ describe("AdzunaJobSource", () => {
     );
     expect(jobPostings).toHaveLength(1);
     expect(jobPostings[0].title.value).toBe("Javascript Developer");
-    expect(jobPostings[0].workMode.value).toBe("ONSITE");
+    expect(jobPostings[0].workMode).toBeUndefined();
   });
 
   it.each([
@@ -92,7 +91,6 @@ describe("AdzunaJobSource", () => {
         appId: "test-app-id",
         appKey: "test-app-key",
         country: "gb",
-        workMode: "ONSITE",
       });
 
       const criteria = JobSearchCriteria.create({
@@ -130,7 +128,6 @@ describe("AdzunaJobSource", () => {
       appId: "test-app-id",
       appKey: "test-app-key",
       country: "gb",
-      workMode: "ONSITE",
     });
 
     const criteria = JobSearchCriteria.create({
@@ -156,7 +153,6 @@ describe("AdzunaJobSource", () => {
       appId: "test-app-id",
       appKey: "test-app-key",
       country: "gb",
-      workMode: "ONSITE",
     });
 
     const criteria = JobSearchCriteria.create({

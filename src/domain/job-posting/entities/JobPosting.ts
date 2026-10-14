@@ -17,7 +17,7 @@ export type JobPostingProps = {
   status: JobPostingStatus;
   location: JobLocation;
   employmentType: EmploymentType;
-  workMode: WorkMode;
+  workMode: WorkMode | undefined;
 };
 
 export class JobPosting {
@@ -75,7 +75,7 @@ export class JobPosting {
     return this.props.employmentType;
   }
 
-  public get workMode(): WorkMode {
+  public get workMode(): WorkMode | undefined {
     return this.props.workMode;
   }
 

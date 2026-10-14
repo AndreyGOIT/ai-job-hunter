@@ -167,7 +167,7 @@ describe("JobPosting Entity", () => {
       workMode,
     });
 
-    expect(jobPosting.workMode.equals(workMode)).toBe(true);
+    expect(jobPosting.workMode).toEqual(workMode);
   });
 
   it("considers job postings with the same id equal", () => {

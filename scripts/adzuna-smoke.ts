@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { FetchJobPostings } from "../src/application/job-posting/use-cases/FetchJobPostings";
 import { AdzunaJobSource } from "../src/infrastructure/adzuna/AdzunaJobSource";
 import { loadAdzunaRuntimeConfiguration } from "../src/infrastructure/adzuna/AdzunaRuntimeConfiguration";
@@ -6,7 +8,6 @@ import { JobSearchCriteria } from "../src/application/job-posting/queries/JobSea
 async function run(): Promise<void> {
   const configuration = loadAdzunaRuntimeConfiguration({
     country: process.env.ADZUNA_COUNTRY ?? "gb",
-    workMode: process.env.ADZUNA_WORK_MODE ?? "ONSITE",
   });
   const jobSource = new AdzunaJobSource(configuration);
   const fetchJobPostings = new FetchJobPostings(jobSource);

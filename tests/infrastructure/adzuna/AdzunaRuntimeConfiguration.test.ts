@@ -13,14 +13,12 @@ describe("loadAdzunaRuntimeConfiguration", () => {
 
     const configuration = loadAdzunaRuntimeConfiguration({
       country: "gb",
-      workMode: "ONSITE",
     });
 
     expect(configuration).toEqual({
       appId: "test-app-id",
       appKey: "test-app-key",
       country: "gb",
-      workMode: "ONSITE",
     });
   });
 
@@ -31,7 +29,6 @@ describe("loadAdzunaRuntimeConfiguration", () => {
     expect(() =>
       loadAdzunaRuntimeConfiguration({
         country: "gb",
-        workMode: "ONSITE",
       }),
     ).toThrow("Missing Adzuna credentials: set ADZUNA_APP_ID and ADZUNA_APP_KEY");
   });
