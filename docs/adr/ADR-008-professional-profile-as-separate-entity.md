@@ -31,12 +31,24 @@ Decision
 
 We will model ProfessionalProfile as a separate Domain Entity associated with User.
 
-The initial ProfessionalProfile will contain only the information required at the current stage of the project:
+The ProfessionalProfile implementation has evolved as the job-search
+requirements became more concrete.
+
+The current ProfessionalProfile contains:
 
 - ProfileId — unique identity of the professional profile;
 - UserId — identity of the associated user;
 - DesiredPosition — the position or type of position the user is seeking;
-- Summary — a short professional summary.
+- Skills — the user's professional skills;
+- LocationPreference — the user's preferred job location;
+- WorkMode — the user's preferred work arrangement;
+- EmploymentType — the user's preferred employment type.
+
+ProfessionalProfile remains a separate Domain Entity associated with User
+through UserId. It does not hold a direct reference to the User Entity.
+
+The professional summary, work experience, education, and projects remain
+potential future additions and are not part of the current implementation.
 
 The initial relationship is:
 
@@ -77,7 +89,10 @@ The initial model is:
 │ ProfileId │
 │ UserId │
 │ DesiredPosition │
-│ Summary │
+│ Skills │
+│ LocationPreference │
+│ WorkMode │
+│ EmploymentType │
 └───────────────────────────┘
 
 Responsibilities
@@ -98,23 +113,21 @@ Those responsibilities belong to other application or infrastructure components.
 
 Value Objects
 
-The initial implementation will use the following Value Objects:
+The current ProfessionalProfile implementation uses the following Value
+Objects:
 
-ProfileId
+- ProfileId — provides type-safe identity for the ProfessionalProfile Entity.
+- UserId — identifies the associated User Entity.
+- DesiredPosition — represents the type of position the user is seeking.
+- Skills — represents the user's professional skills.
+- LocationPreference — represents the user's preferred job location.
+- WorkMode — represents the user's preferred work arrangement.
+- EmploymentType — represents the user's preferred employment type.
 
-Provides type-safe identity for the ProfessionalProfile Entity.
+Each Value Object encapsulates its own representation and validation rules.
 
-DesiredPosition
-
-Represents the type of position the user is seeking.
-
-The Value Object will encapsulate validation and normalization rules instead of exposing a primitive string directly in the Entity.
-
-Summary
-
-Represents the user’s professional summary.
-
-The Value Object will encapsulate validation rules such as acceptable length and empty-value handling.
+Summary is not part of the current implementation and may be introduced
+when the corresponding requirements become concrete.
 
 Consequences
 

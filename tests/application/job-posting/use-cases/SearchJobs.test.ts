@@ -9,6 +9,7 @@ import { DesiredPosition } from "../../../../src/domain/profile/value-objects/De
 import { EmploymentType } from "../../../../src/domain/profile/value-objects/EmploymentType";
 import { LocationPreference } from "../../../../src/domain/profile/value-objects/LocationPreference";
 import { ProfileId } from "../../../../src/domain/profile/value-objects/ProfileId";
+import { UserId } from "../../../../src/domain/user/value-objects/UserId";
 import { Skills } from "../../../../src/domain/profile/value-objects/Skills";
 import { WorkMode } from "../../../../src/domain/profile/value-objects/WorkMode";
 import { JobPosting } from "../../../../src/domain/job-posting/entities/JobPosting";
@@ -52,6 +53,7 @@ describe("SearchJobs", () => {
   it("searches jobs using the professional profile preferences", async () => {
     const profile = ProfessionalProfile.create({
       id: ProfileId.create(),
+      userId: UserId.create(),
       desiredPosition: DesiredPosition.create("Full Stack Developer"),
       skills: Skills.create(["TypeScript", "React", "Node.js"]),
       locationPreference: LocationPreference.create("Helsinki"),

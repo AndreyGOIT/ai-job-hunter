@@ -8,11 +8,13 @@ import { LocationPreference } from "../../../../src/domain/profile/value-objects
 import { ProfileId } from "../../../../src/domain/profile/value-objects/ProfileId";
 import { Skills } from "../../../../src/domain/profile/value-objects/Skills";
 import { WorkMode } from "../../../../src/domain/profile/value-objects/WorkMode";
+import { UserId } from "../../../../src/domain/user/value-objects/UserId";
 
 describe("BuildJobSearchCriteria", () => {
   it("builds search criteria from professional profile preferences", () => {
     const profile = ProfessionalProfile.create({
       id: ProfileId.create(),
+      userId: UserId.create(),
       desiredPosition: DesiredPosition.create("Full Stack Developer"),
       skills: Skills.create(["TypeScript", "React", "Node.js"]),
       locationPreference: LocationPreference.create("Helsinki"),

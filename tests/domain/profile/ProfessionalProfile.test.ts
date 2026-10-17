@@ -7,9 +7,11 @@ import { Skills } from "../../../src/domain/profile/value-objects/Skills";
 import { LocationPreference } from "../../../src/domain/profile/value-objects/LocationPreference";
 import { WorkMode } from "../../../src/domain/profile/value-objects/WorkMode";
 import { EmploymentType } from "../../../src/domain/profile/value-objects/EmploymentType";
+import { UserId } from "../../../src/domain/user/value-objects/UserId";
 
 describe("ProfessionalProfile Entity", () => {
   const id = ProfileId.create();
+  const userId = UserId.create();
   const desiredPosition = DesiredPosition.create("Full Stack Developer");
   const skills = Skills.create(["TypeScript", "React", "Node.js"]);
   const locationPreference = LocationPreference.create("Helsinki");
@@ -19,6 +21,7 @@ describe("ProfessionalProfile Entity", () => {
   it("creates a professional profile", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -32,6 +35,7 @@ describe("ProfessionalProfile Entity", () => {
   it("returns its id", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -45,6 +49,7 @@ describe("ProfessionalProfile Entity", () => {
   it("returns its desired position", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -58,6 +63,7 @@ describe("ProfessionalProfile Entity", () => {
   it("returns its skills", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -71,6 +77,7 @@ describe("ProfessionalProfile Entity", () => {
   it("returns its location preference", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -84,6 +91,7 @@ describe("ProfessionalProfile Entity", () => {
   it("returns its work mode", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -97,6 +105,7 @@ describe("ProfessionalProfile Entity", () => {
   it("returns its employment type", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -110,6 +119,7 @@ describe("ProfessionalProfile Entity", () => {
   it("considers profiles with the same id equal", () => {
     const first = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -119,6 +129,7 @@ describe("ProfessionalProfile Entity", () => {
 
     const second = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -132,6 +143,7 @@ describe("ProfessionalProfile Entity", () => {
   it("considers profiles with different ids different", () => {
     const first = ProfessionalProfile.create({
       id: ProfileId.create(),
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -141,6 +153,7 @@ describe("ProfessionalProfile Entity", () => {
 
     const second = ProfessionalProfile.create({
       id: ProfileId.create(),
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -154,6 +167,7 @@ describe("ProfessionalProfile Entity", () => {
   it("updates its desired position", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -171,6 +185,7 @@ describe("ProfessionalProfile Entity", () => {
   it("updates its skills", () => {
     const profile = ProfessionalProfile.create({
       id,
+      userId,
       desiredPosition,
       skills,
       locationPreference,
@@ -184,4 +199,34 @@ describe("ProfessionalProfile Entity", () => {
 
     expect(profile.skills.equals(newSkills)).toBe(true);
   });
+
+  it("returns its user id", () => {
+  const profile = ProfessionalProfile.create({
+    id,
+    userId,
+    desiredPosition,
+    skills,
+    locationPreference,
+    workMode,
+    employmentType,
+  });
+
+  expect(profile.userId.equals(userId)).toBe(true);
+});
+
+it("associates the profile with the specified user", () => {
+  const anotherUserId = UserId.create();
+
+  const profile = ProfessionalProfile.create({
+    id,
+    userId: anotherUserId,
+    desiredPosition,
+    skills,
+    locationPreference,
+    workMode,
+    employmentType,
+  });
+
+  expect(profile.userId.equals(anotherUserId)).toBe(true);
+});
 });

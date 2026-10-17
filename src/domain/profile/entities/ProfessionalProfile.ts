@@ -4,9 +4,11 @@ import { LocationPreference } from "../value-objects/LocationPreference";
 import { ProfileId } from "../value-objects/ProfileId";
 import { Skills } from "../value-objects/Skills";
 import { WorkMode } from "../value-objects/WorkMode";
+import { UserId } from "../../user/value-objects/UserId";
 
 export type ProfessionalProfileProps = {
   id: ProfileId;
+  userId: UserId;
   desiredPosition: DesiredPosition;
   skills: Skills;
   locationPreference: LocationPreference;
@@ -23,6 +25,10 @@ export class ProfessionalProfile {
 
   public get id(): ProfileId {
     return this.props.id;
+  }
+
+  public get userId(): UserId {
+    return this.props.userId;
   }
 
   public get desiredPosition(): DesiredPosition {
